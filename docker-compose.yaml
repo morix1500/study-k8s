@@ -1,0 +1,21 @@
+version: "3"
+services:
+  nginx:
+    build: nginx
+    ports:
+      - 80:80
+    logging:
+      driver: fluentd
+      options:
+        tag: "docker-{{.Name}}"
+    links:
+      - app
+      - fluentd
+  app:
+    build: app
+    ports:
+      - 3000:3000
+  fluentd:
+    build: fluentd
+    ports:
+      - 24224:24224
