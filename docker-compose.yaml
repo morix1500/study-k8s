@@ -2,6 +2,7 @@ version: "3"
 services:
   nginx:
     build: nginx
+    image: vagrant_nginx:v1.0
     ports:
       - 80:80
     logging:
@@ -13,9 +14,11 @@ services:
       - fluentd
   app:
     build: app
+    image: vagrant_app:v1.0
     ports:
       - 3000:3000
   fluentd:
     build: fluentd
+    image: vagrant_fluentd:v1.0
     ports:
       - 24224:24224
