@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sample-app
+  template:
+    metadata:
+      labels:
+        app: sample-app
+    spec:
+      volumes:
+        - name: nginx-log
+          emptyDir: {}
+      containers:
+        - name: nginx
+          image: vagrant_nginx:v1.1
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /var/log/nginx
+              name: nginx-log
+        - name: app
+          image: vagrant_app:v1.1
+          ports:
+            - containerPort: 3000
+        - name: fluentd
+          image: vagrant_fluentd:v1.0
+          ports:
+            - containerPort: 24224
+          volumeMounts:
+            - mountPath: /var/log/nginx
+              name: nginx-log

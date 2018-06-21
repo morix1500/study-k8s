@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluentd
+  labels:
+    app: sample
+spec:
+  selector:
+    matchLabels:
+      app: fluentd
+  template:
+    metadata:
+      labels:
+        app: fluentd
+    spec:
+      containers:
+        - name: fluentd
+          image: vagrant_fluentd:v1.1
+          volumeMounts:
+            - name: log
+              mountPath: /var/log
+              #readOnly: true
+      volumes:
+        - name: log
+          hostPath:
+            path: /var/log
+            type: DirectoryOrCreate
