@@ -16,12 +16,19 @@ spec:
       containers:
         - name: fluentd
           image: vagrant_fluentd:v1.1
+          securityContext:
+            privileged: true
           volumeMounts:
             - name: log
-              mountPath: /var/log
-              #readOnly: true
+              mountPath: /var/log/
+            - name: var-lib-docker
+              mountPath: /var/lib/docker/
+              readOnly: true
       volumes:
         - name: log
           hostPath:
-            path: /var/log
+            path: /var/log/
             type: DirectoryOrCreate
+        - name: var-lib-docker
+          hostPath:
+            path: /var/lib/docker/
