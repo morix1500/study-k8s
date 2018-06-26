@@ -14,11 +14,11 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: vagrant_nginx:v1.1
+          image: vagrant_nginx:v1.0
           ports:
             - containerPort: 80
         - name: app
-          image: vagrant_app:v1.1
+          image: vagrant_app:v1.0
           ports:
             - containerPort: 3000
         - name: fluentd
